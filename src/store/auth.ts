@@ -44,18 +44,6 @@ const auth = createSlice({
     builder.addCase(login.pending, (state) => {
       state.isLoggingIn = true;
     });
-    builder.addCase(signup.fulfilled, (state, { payload }) => {
-      state.loggedIn = true;
-      state.user = payload;
-      state.isLoggingIn = false;
-    });
-    builder.addCase(signup.rejected, (state) => {
-      state.loggedIn = false;
-      state.isLoggingIn = false;
-    });
-    builder.addCase(signup.pending, (state) => {
-      state.isLoggingIn = true;
-    });
     builder.addCase(getUserData.fulfilled, (state, { payload }) => {
       if (payload) {
         state.user = payload;
@@ -86,12 +74,18 @@ function getAuthErrorMessage(response: ErrorResponse): string {
   }
 }
 
-export const login = createAsyncThunk<AuthPayload | undefined, LoginDataType>(
+export const login = createAsyncThunk<User | undefined, LoginDataType>(
   'auth/login',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
-      const response = await authService.login(payload.email, payload.password);
-      return response;
+      const response = await authService.login(payload.username, payload.password);
+      const user: User = {
+        name: response.fullName,
+        phoneNumber: response.phoneNumber,
+        roles: response.roles,
+        userId: response.userId,
+      };
+      return user;
     } catch (err) {
       const { error } = err as unknown as ApiResponse;
       const message = getAuthErrorMessage(error);
@@ -106,26 +100,8 @@ export const login = createAsyncThunk<AuthPayload | undefined, LoginDataType>(
     }
   }
 );
-export const signup = createAsyncThunk<AuthPayload | undefined, LoginDataType>(
-  'auth/signup',
-  async (payload, { dispatch, rejectWithValue }) => {
-    try {
-      const response = await authService.signup(payload.email, payload.password);
-      return response;
-    } catch (error) {
-      dispatch(
-        setSnackbar({
-          color: 'error',
-          title: 'login error',
-          content: (error as ApiResponse).error.message,
-        })
-      );
-      return rejectWithValue((error as ApiResponse).error.message);
-    }
-  }
-);
 
-export const getUserData = createAsyncThunk<User | undefined, void>(
+export const getUserData = createAsyncThunk<User | null, void>(
   'auth/getUser',
   async (_payload, { rejectWithValue }) => {
     try {

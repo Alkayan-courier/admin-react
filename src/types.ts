@@ -1,6 +1,8 @@
 import { Theme } from '@emotion/react';
 import { ComponentsOverrides, ComponentsProps } from '@mui/material';
 import theme from 'assets/theme';
+import environment from 'enviroment';
+import { JwtPayload } from 'jwt-decode';
 import { ReactElement, ReactNode } from 'react';
 
 export type ComponentType<
@@ -92,17 +94,19 @@ export type ActionType = {
   color?: OwnerColorType;
 };
 
-export interface AuthPayload {
-  localId: string;
+export interface AuthPayload extends User {
+  accessToken: string;
   email: string;
-  displayName: string;
-  idToken: string;
-  registered: boolean;
+  fullName: string;
+  isProfileCompleted: boolean;
+  phoneNumber: string;
+  profileCompleteness: number;
   refreshToken: string;
-  expiresIn: string;
+  roles: string[];
+  userId: string;
 }
 
-export type LoginDataType = { email: string; password: string };
+export type LoginDataType = { username: string; password: string };
 
 export enum AuthErrorMessages {
   EMAIL_NOT_FOUND = 'There is no user record corresponding to this identifier. The user may have been deleted.',
@@ -133,16 +137,10 @@ export interface ProviderUserInfo {
 }
 
 export interface User {
-  localId: string;
-  email: string;
-  passwordHash: string;
-  emailVerified: boolean;
-  passwordUpdatedAt: number;
-  providerUserInfo: ProviderUserInfo[];
-  validSince: string;
-  lastLoginAt: string;
-  createdAt: string;
-  lastRefreshAt: string;
+  userId: string;
+  phoneNumber: string;
+  roles: string[];
+  name: string;
 }
 
 export interface GetAccountInfoResponse {
@@ -173,3 +171,21 @@ export interface AuthResponse {
   user_id: string;
   project_id: string;
 }
+
+export type JWTDataTypes = JwtPayload & {
+  [environment.idClaim]: string;
+  [environment.mobileClaim]: string;
+  [environment.roleClaim]: string[];
+  [environment.userName]: string;
+};
+export type OrderStatus = {
+  statusNameEn: string;
+  statusNameAr: string;
+  backgroundColor: string;
+  iconPath: string;
+  isQRRequired: boolean;
+  statusId: number;
+  sortNumber: number;
+  ordersCount: number;
+  price: number;
+};

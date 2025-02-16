@@ -1,5 +1,7 @@
-// ApiService.ts
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import environment from 'enviroment';
+import { isJwtExpired } from 'jwt-check-expiration';
+import { AuthPayload } from 'types';
 
 export interface ApiServiceConfig {
   baseURL: string;
@@ -8,32 +10,34 @@ export interface ApiServiceConfig {
 }
 
 const API_URL = `${process.env.REACT_APP_API_URL}`;
-const API_KEY = `${process.env.REACT_APP_API_KEY}`;
-const DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 export class ApiService {
   protected api: AxiosInstance;
 
-  constructor(isAuthApi?: boolean) {
+  constructor() {
     this.api = axios.create({
-      baseURL: isAuthApi ? API_URL : DATABASE_URL,
+      baseURL: environment.apiURL,
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
-        // ...(config.headers || {}),
       },
     });
     this.api.interceptors.request.use(
-      (config) => {
-        const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage with key 'token'
-        const idToken = localStorage.getItem('idToken');
+      async (config) => {
+        const token = localStorage.getItem('accessToken'); // Assuming the token is stored in localStorage with key 'token'
         if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-        if (API_KEY) {
-          config.params = {};
-          config.params.key = API_KEY;
-          if (idToken) {
-            config.params.auth = idToken;
+          if (isJwtExpired(token)) {
+            const refreshToken = localStorage.getItem('refreshToken');
+            const { data } = await this.api.post<Partial<AuthPayload>>(
+              `${API_URL}/Auth/RefreshToken`,
+              {
+                accessToken: token,
+                refreshToken,
+              }
+            );
+            this.saveTokens(data);
+            config.headers.Authorization = `Bearer ${data.accessToken}`;
+          } else {
+            config.headers.Authorization = `Bearer ${token}`;
           }
         }
         return config;
@@ -102,5 +106,11 @@ export class ApiService {
     }
 
     throw error.response.data;
+  }
+  saveTokens(payload: Partial<AuthPayload>) {
+    if (payload.accessToken && payload.refreshToken) {
+      localStorage.setItem('accessToken', payload.accessToken);
+      localStorage.setItem('refreshToken', payload.refreshToken);
+    }
   }
 }

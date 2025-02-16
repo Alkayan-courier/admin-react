@@ -122,12 +122,6 @@ function DefaultNavbar({ transparent, light, action }: DefaultNavbarProps) {
           <DefaultNavbarLink icon='donut_large' name='dashboard' route='/dashboard' light={light} />
           <DefaultNavbarLink icon='person' name='profile' route='/profile' light={light} />
           <DefaultNavbarLink
-            icon='account_circle'
-            name='sign up'
-            route='/authentication/sign-up'
-            light={light}
-          />
-          <DefaultNavbarLink
             icon='key'
             name='sign in'
             route='/authentication/sign-in'

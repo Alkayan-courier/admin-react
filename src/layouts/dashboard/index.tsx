@@ -34,31 +34,40 @@ import reportsLineChartData from 'layouts/dashboard/data/reportsLineChartData';
 // Dashboard components
 import Projects from 'layouts/dashboard/components/Projects';
 import OrdersOverview from 'layouts/dashboard/components/OrdersOverview';
+import { Children, useEffect } from 'react';
+import { getDashboardData } from 'store/dashboard';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import OrderStatusStatisticsCard from 'examples/Cards/StatisticsCards/OrderStatusStatisticsCard';
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
-
+  const { data } = useAppSelector((state) => state.dashboard);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getDashboardData());
+  }, []);
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color='dark'
-                icon='weekend'
-                title='Bookings'
-                count={281}
-                percentage={{
-                  color: 'success',
-                  amount: '+55%',
-                  label: 'than lask week',
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          {Children.toArray(
+            data.map((card) => (
+              <Grid item xs={12} md={6} lg={3}>
+                <MDBox mb={1.5}>
+                  <OrderStatusStatisticsCard
+                    color='dark'
+                    bgColor={card.backgroundColor}
+                    icon={card.iconPath}
+                    title={card.price + ' AED'}
+                    count={card.ordersCount}
+                    label={card.statusNameEn}
+                  />
+                </MDBox>
+              </Grid>
+            ))
+          )}
+          {/* <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon='leaderboard'
@@ -101,7 +110,7 @@ function Dashboard() {
                 }}
               />
             </MDBox>
-          </Grid>
+          </Grid> */}
         </Grid>
         <MDBox mt={4.5}>
           <Grid container spacing={3}>

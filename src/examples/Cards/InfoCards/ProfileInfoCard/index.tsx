@@ -32,6 +32,7 @@ import MDTypography from 'components/MDTypography';
 // Material Dashboard 2 React base styles
 import colors from 'assets/theme/base/colors';
 import { baseProperties } from 'assets/theme/base/typography';
+import { JSX } from 'react';
 
 interface Action {
   route: string;
