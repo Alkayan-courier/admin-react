@@ -156,7 +156,7 @@ export default function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      dispatchApp(getEmployees());
+      // dispatchApp(getEmployees());
     } else {
       dispatchApp(getUserData());
     }

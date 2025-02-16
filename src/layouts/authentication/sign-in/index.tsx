@@ -50,7 +50,7 @@ import Spinner from 'components/Spinner';
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
   const [loginData, setLoginData] = useState<LoginDataType>({
-    email: '',
+    username: '',
     password: '',
   });
   const { isLoggingIn } = useSelector((state: RootState) => state.auth);
@@ -81,7 +81,7 @@ function Basic() {
           <MDTypography variant='h4' fontWeight='medium' color='white' mt={1}>
             Sign in
           </MDTypography>
-          <Grid container spacing={3} justifyContent='center' sx={{ mt: 1, mb: 2 }}>
+          {/* <Grid container spacing={3} justifyContent='center' sx={{ mt: 1, mb: 2 }}>
             <Grid item xs={2}>
               <MDTypography component={MuiLink} href='#' variant='body1' color='white'>
                 <FacebookIcon color='inherit' />
@@ -97,17 +97,17 @@ function Basic() {
                 <GoogleIcon color='inherit' />
               </MDTypography>
             </Grid>
-          </Grid>
+          </Grid> */}
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component='form' role='form' onSubmit={submitHandler}>
             <MDBox mb={2}>
               <MDInput
-                type='email'
-                label='Email'
-                autoComplete='email'
+                type='username'
+                label='username'
+                autoComplete='username'
                 fullWidth
-                onChange={(e) => setLoginData((item) => ({ ...item, email: e.target.value }))}
+                onChange={(e) => setLoginData((item) => ({ ...item, username: e.target.value }))}
                 required
               />
             </MDBox>
@@ -121,7 +121,7 @@ function Basic() {
                 required
               />
             </MDBox>
-            <MDBox display='flex' alignItems='center' ml={-1}>
+            {/* <MDBox display='flex' alignItems='center' ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
               <MDTypography
                 variant='button'
@@ -132,7 +132,7 @@ function Basic() {
               >
                 &nbsp;&nbsp;Remember me
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
             <MDBox mt={4} mb={1}>
               <MDButton
                 variant='gradient'
@@ -147,16 +147,15 @@ function Basic() {
             </MDBox>
             <MDBox mt={3} mb={1} textAlign='center'>
               <MDTypography variant='button' color='text'>
-                Don&apos;t have an account?{' '}
                 <MDTypography
                   component={Link}
-                  to='/authentication/sign-up'
+                  to='/authentication/'
                   variant='button'
                   color='info'
                   fontWeight='medium'
                   textGradient
                 >
-                  Sign up
+                  Forgot password?
                 </MDTypography>
               </MDTypography>
             </MDBox>

@@ -76,7 +76,7 @@ function DashboardNavbar({ absolute, light, isMini }: DashboardNavbarProps) {
   const { user } = useSelector((state: RootState) => state.auth);
   const [openList, setOpenList] = useState<boolean>(false);
   const route = useLocation().pathname.split('/').slice(1);
-  const dropdownRef = useRef<HTMLDivElement>();
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const appDispatch = useDispatch();
   useEffect(() => {
     // Setting the navbar type
@@ -200,7 +200,7 @@ function DashboardNavbar({ absolute, light, isMini }: DashboardNavbarProps) {
                       <AccountCircle fontSize='large' className='mx-1' />
                       hello{' '}
                       <MDTypography component={'strong'} fontSize={'14px !important'}>
-                        {user?.email.split('@')[0]}
+                        {user?.name}
                       </MDTypography>
                     </MDTypography>
                     <Divider

@@ -2,12 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import snackbar from './snackbar';
 import auth from './auth';
 import employees from './employees';
-
+import dashboard from './dashboard';
 export const store = configureStore({
   reducer: {
     snackbar,
     auth,
     employees,
+    dashboard,
   },
 });
 

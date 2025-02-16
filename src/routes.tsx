@@ -51,7 +51,6 @@ const RTL = lazy(() => import('layouts/rtl'));
 const Notifications = lazy(() => import('layouts/notifications'));
 const Profile = lazy(() => import('layouts/profile'));
 const SignIn = lazy(() => import('layouts/authentication/sign-in'));
-const SignUp = lazy(() => import('layouts/authentication/sign-up'));
 
 const routes: AppRoute[] = [
   {
@@ -136,15 +135,6 @@ const routes: AppRoute[] = [
     icon: <Icon fontSize='small'>login</Icon>,
     route: '/authentication/sign-in',
     component: <SignIn />,
-    auth: false,
-  },
-  {
-    type: 'collapse',
-    name: 'Sign Up',
-    key: 'sign-up',
-    icon: <Icon fontSize='small'>assignment</Icon>,
-    route: '/authentication/sign-up',
-    component: <SignUp />,
     auth: false,
   },
   // {
