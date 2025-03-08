@@ -32,16 +32,10 @@ import { ReactNode } from 'react';
 interface Action {
   type: 'external' | 'internal';
   route: string;
-  color?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error'
-    // | 'dark'
-    // | 'light'
-    // | 'default';
+  color?: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
+  // | 'dark'
+  // | 'light'
+  // | 'default';
   label: string;
 }
 

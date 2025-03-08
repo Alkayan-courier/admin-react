@@ -44,7 +44,9 @@ function Dashboard() {
   const { data } = useAppSelector((state) => state.dashboard);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getDashboardData());
+    if (data.length === 0) {
+      dispatch(getDashboardData());
+    }
   }, []);
   return (
     <DashboardLayout>
@@ -67,50 +69,6 @@ function Dashboard() {
               </Grid>
             ))
           )}
-          {/* <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon='leaderboard'
-                title="Today's Users"
-                count='2,300'
-                percentage={{
-                  color: 'success',
-                  amount: '+3%',
-                  label: 'than last month',
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color='success'
-                icon='store'
-                title='Revenue'
-                count='34k'
-                percentage={{
-                  color: 'success',
-                  amount: '+1%',
-                  label: 'than yesterday',
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color='primary'
-                icon='person_add'
-                title='Followers'
-                count='+91'
-                percentage={{
-                  color: 'success',
-                  amount: '',
-                  label: 'Just updated',
-                }}
-              />
-            </MDBox>
-          </Grid> */}
         </Grid>
         <MDBox mt={4.5}>
           <Grid container spacing={3}>

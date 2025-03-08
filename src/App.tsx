@@ -47,6 +47,9 @@ import themeDarkRTL from 'assets/theme-dark/theme-rtl';
 import routes from 'routes';
 
 // Material Dashboard 2 React contexts
+
+import 'regenerator-runtime/runtime';
+
 import {
   useMaterialUIController,
   setMiniSidenav,
