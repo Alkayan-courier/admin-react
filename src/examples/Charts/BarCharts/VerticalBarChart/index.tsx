@@ -73,7 +73,7 @@ function VerticalBarChart({ icon, title, description, height, chart }: VerticalB
               : colors.dark.main,
             fill: false,
             maxBarThickness: 35,
-          } as ChartDataset<'bar'> & {
+          }) as ChartDataset<'bar'> & {
             weight: number;
             borderWidth: number;
             borderRadius: number;
@@ -81,7 +81,7 @@ function VerticalBarChart({ icon, title, description, height, chart }: VerticalB
             fill: boolean;
             maxBarThickness: number;
             color: ColorType;
-          })
+          }
       )
     : [];
 

@@ -36,7 +36,7 @@ export type ControllerType = {
   transparentNavbar: boolean;
   fixedNavbar: boolean;
   openConfigurator: boolean;
-  direction: string;
+  direction: 'ltr' | 'rtl';
   layout: string;
   darkMode: boolean;
 };
@@ -104,7 +104,7 @@ function MaterialUIControllerProvider({ children }: { children: ReactNode }) {
     miniSidenav: false,
     transparentSidenav: false,
     whiteSidenav: false,
-    sidenavColor: 'info',
+    sidenavColor: 'info' as const,
     transparentNavbar: true,
     fixedNavbar: true,
     openConfigurator: false,

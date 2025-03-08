@@ -9,7 +9,7 @@ export interface ApiServiceConfig {
   headers?: Record<string, string>;
 }
 
-const API_URL = `${process.env.REACT_APP_API_URL}`;
+const API_URL = `${import.meta.env.VITE_API_API_URL}`;
 export class ApiService {
   protected api: AxiosInstance;
 

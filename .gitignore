@@ -29,3 +29,5 @@ commit.sh
 # Local Netlify folder
 .netlify
 .env
+
+dist/

@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 const Claims = {
   ID: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier',
   MOBILE: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone',
@@ -6,9 +8,9 @@ const Claims = {
 } as const;
 
 const environment = {
-  apiURL: process.env.REACT_APP_API_URL,
-  token: process.env.REACT_APP_TOKEN,
-  imagesUrl: process.env.REACT_APP_IMAGES_URL,
+  apiURL: import.meta.env.VITE_API_API_URL,
+  token: import.meta.env.VITE_API_TOKEN,
+  imagesUrl: import.meta.env.VITE_API_IMAGES_URL,
   roleClaim: Claims.ROLE,
   mobileClaim: Claims.MOBILE,
   userName: Claims.USERNAME,
