@@ -16,13 +16,14 @@ Coded by www.creative-tim.com
 import { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import App from 'App';
+// import App from 'App';
 import './index.css';
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from './context';
 import { Provider } from 'react-redux';
 import { store } from 'store';
 import Loader from 'components/Loader';
+import App from './App';
 
 const container = document.getElementById('app');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
