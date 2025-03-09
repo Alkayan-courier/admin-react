@@ -5,11 +5,16 @@ import svgr from 'vite-plugin-svgr';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [react(), svgr(),],
+  plugins: [react(), svgr()],
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, 'src/components'), // Define alias
       '@assets': '/src/assets',
     },
   },
+  // build: {
+  //   rollupOptions: {
+  //     external: ['store'],
+  //   },
+  // },
 });
