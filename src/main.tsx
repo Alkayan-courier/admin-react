@@ -22,8 +22,8 @@ import './index.css';
 import { MaterialUIControllerProvider } from './context';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import Loader from 'components/Loader';
 import App from './App';
+import Loader from './components/Loader';
 
 const container = document.getElementById('app');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
