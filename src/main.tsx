@@ -21,7 +21,7 @@ import './index.css';
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from './context';
 import { Provider } from 'react-redux';
-import { store } from 'store';
+import { store } from './store';
 import Loader from 'components/Loader';
 import App from './App';
 
